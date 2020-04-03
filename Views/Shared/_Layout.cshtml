@@ -1,0 +1,63 @@
+﻿@{
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <title>H O I V A</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-brand">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Lapset", "Index", "Asiakkaat")</li>
+                    <li>@Html.ActionLink("Tapahtumat", "Index", "Tapahtumat")</li>
+                </ul>
+
+                <ul class="nav navbar-nav" style="margin-left:70%">
+                    
+                    <li>@Html.ActionLink("Sulje istunto", "LogOut", "Login")</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SISÄLTÖSIVUJEN SIJOITUSKOHTA -->
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+        <footer style="margin-top: 150px">
+            <p>&copy; @DateTime.Now.Year - H O I V A</p>
+        </footer>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

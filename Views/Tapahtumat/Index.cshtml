@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Hoivasovellus.Models.Tapahtumat>
+
+
+<h2>Tapahtumat</h2>
+
+
+<!-- Sininen ja vihreä navigointi buttoni-->
+<h1>
+    <a href="@Url.Action("Create", "Tapahtumat")" class="btn btn-success btn-md">
+        <i class="icon-plus-sign"></i> kirjaa tapahtuma
+
+    </a>
+
+    <a href="@Url.Action("Create", "Asiakkaat")" class="btn btn-info btn-md">
+        <i class="icon-plus-sign"></i> Lisää uusi lapsi
+
+    </a>
+</h1>
+
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Otsikko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teksti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kirjaaja)
+        </th>
+        <th>
+            Tapahtuma aika
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asiakkaat.Etunimi)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                <a href="@Url.Action("Details", "Tapahtumat", new { id = item.TapahtumaID })" class="icon-print">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Otsikko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teksti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kirjaaja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TapahtumaAika)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiakkaat.Etunimi)
+            </td>
+            <td>
+                <a style="margin-right: 20px" href="@Url.Action("Edit", "Tapahtumat", new { id = item.TapahtumaID })" class="icon-edit">
+
+                    <a href="@Url.Action("Delete", "Tapahtumat", new { id = item.TapahtumaID })" class="icon-trash">
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Hoivasovellus.Models.Asiakkaat>
+
+
+<h2>Lasten perustiedot</h2>
+
+<!-- Sininen ja vihreä navigointi buttoni-->
+<h1>
+    <a href="@Url.Action("Create", "Tapahtumat")" class="btn btn-success btn-md">
+        <i class="icon-plus-sign"></i> Kirjaa tapahtuma
+    </a>
+
+    <a href="@Url.Action("Create", "Asiakkaat")" class="btn btn-info btn-md">
+        <i class="icon-plus-sign"></i> Lisää uusi lapsi
+    </a>
+
+</h1>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sukunimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Puhelin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lääkitykset)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sotu)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                <a href="@Url.Action("Details", "Asiakkaat", new { id = item.AsiakasID })" class="icon-print"></a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Etunimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sukunimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Puhelin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lääkitykset)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sotu)
+            </td>
+            <td>
+                <a style="margin-right: 20px" href="@Url.Action("Edit", "Asiakkaat", new { id = item.AsiakasID })" class="icon-edit">
+
+                    <a href="@Url.Action("Delete", "Asiakkaat", new { id = item.AsiakasID })" class="icon-trash">
+            </td>
+
+        </tr>
+    }
+
+</table>

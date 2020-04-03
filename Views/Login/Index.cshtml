@@ -1,0 +1,104 @@
+﻿﻿@model Hoivasovellus.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>H O I V A</title>
+
+    <style>
+
+        #login-div {
+            position: absolute;
+            left: 30%;
+            top: 20%;
+            border: 1px solid #ccc;
+            padding: 30px 30px;
+            background-color: silver;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body style="background-color:black;">
+
+    <h4>@ViewBag.LogOut</h4>
+
+    <div id="login-div">
+        <h4 style="text-align:center">
+           H O I V A
+        </h4>
+        <br>
+        @using (Html.BeginForm("Auth", "Login", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>
+                        Käyttäjätunnus
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.UserName)
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Salasana
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="field-validation-error">
+                            @Html.DisplayFor(model => model.LoginErrorMessage)
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="name" value="Kirjaudu" />
+                        <input type="reset" name="name" value="Tyhjennä" />
+
+                    </td>
+                </tr>
+
+            </table>
+        }
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+
+</html>
+

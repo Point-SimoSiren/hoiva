@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hoivadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asiakkaat">
+          <Key>
+            <PropertyRef Name="AsiakasID" />
+          </Key>
+          <Property Name="AsiakasID" Type="int" Nullable="false" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Sukunimi" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Puhelin" Type="nvarchar" MaxLength="20" />
+          <Property Name="Lääkitykset" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sotu" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tapahtumat">
+          <Key>
+            <PropertyRef Name="TapahtumaID" />
+          </Key>
+          <Property Name="TapahtumaID" Type="int" Nullable="false" />
+          <Property Name="Otsikko" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Teksti" Type="nvarchar" MaxLength="400" />
+          <Property Name="Kirjaaja" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="TapahtumaAika" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AsiakasID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tapahtumat_Asiakasid">
+          <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
+          <End Role="Tapahtumat" Type="Self.Tapahtumat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asiakkaat">
+              <PropertyRef Name="AsiakasID" />
+            </Principal>
+            <Dependent Role="Tapahtumat">
+              <PropertyRef Name="AsiakasID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hoivadbModelStoreContainer">
+          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tapahtumat" EntityType="Self.Tapahtumat" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tapahtumat_Asiakasid" Association="Self.FK_Tapahtumat_Asiakasid">
+            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
+            <End Role="Tapahtumat" EntitySet="Tapahtumat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hoivadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asiakkaat">
+          <Key>
+            <PropertyRef Name="AsiakasID" />
+          </Key>
+          <Property Name="AsiakasID" Type="Int32" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Puhelin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Lääkitykset" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sotu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tapahtumat" Relationship="Self.FK_Tapahtumat_Asiakasid" FromRole="Asiakkaat" ToRole="Tapahtumat" />
+        </EntityType>
+        <EntityType Name="Tapahtumat">
+          <Key>
+            <PropertyRef Name="TapahtumaID" />
+          </Key>
+          <Property Name="TapahtumaID" Type="Int32" Nullable="false" />
+          <Property Name="Otsikko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Teksti" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Kirjaaja" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TapahtumaAika" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AsiakasID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asiakkaat" Relationship="Self.FK_Tapahtumat_Asiakasid" FromRole="Tapahtumat" ToRole="Asiakkaat" />
+        </EntityType>
+        <Association Name="FK_Tapahtumat_Asiakasid">
+          <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
+          <End Role="Tapahtumat" Type="Self.Tapahtumat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asiakkaat">
+              <PropertyRef Name="AsiakasID" />
+            </Principal>
+            <Dependent Role="Tapahtumat">
+              <PropertyRef Name="AsiakasID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hoivadbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" />
+          <EntitySet Name="Tapahtumat" EntityType="Self.Tapahtumat" />
+          <AssociationSet Name="FK_Tapahtumat_Asiakasid" Association="Self.FK_Tapahtumat_Asiakasid">
+            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
+            <End Role="Tapahtumat" EntitySet="Tapahtumat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hoivadbModelStoreContainer" CdmEntityContainer="hoivadbEntities">
+          <EntitySetMapping Name="Asiakkaat">
+            <EntityTypeMapping TypeName="hoivadbModel.Asiakkaat">
+              <MappingFragment StoreEntitySet="Asiakkaat">
+                <ScalarProperty Name="AsiakasID" ColumnName="AsiakasID" />
+                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+                <ScalarProperty Name="Puhelin" ColumnName="Puhelin" />
+                <ScalarProperty Name="Lääkitykset" ColumnName="Lääkitykset" />
+                <ScalarProperty Name="Sotu" ColumnName="Sotu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tapahtumat">
+            <EntityTypeMapping TypeName="hoivadbModel.Tapahtumat">
+              <MappingFragment StoreEntitySet="Tapahtumat">
+                <ScalarProperty Name="TapahtumaID" ColumnName="TapahtumaID" />
+                <ScalarProperty Name="Otsikko" ColumnName="Otsikko" />
+                <ScalarProperty Name="Teksti" ColumnName="Teksti" />
+                <ScalarProperty Name="Kirjaaja" ColumnName="Kirjaaja" />
+                <ScalarProperty Name="TapahtumaAika" ColumnName="TapahtumaAika" />
+                <ScalarProperty Name="AsiakasID" ColumnName="AsiakasID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,48 @@
+﻿@model Hoivasovellus.Models.Tapahtumat
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Otsikko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Otsikko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teksti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teksti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kirjaaja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kirjaaja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TapahtumaAika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TapahtumaAika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asiakkaat.Etunimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiakkaat.Etunimi)
+        </dd>
+
+    </dl>
+</div>
