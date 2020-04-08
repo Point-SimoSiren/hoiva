@@ -21,14 +21,14 @@ namespace Hoivasovellus.Controllers
         [HttpPost]
         public ActionResult Auth(Hoivasovellus.Models.User userModel)
         {
-            using (hoivadbEntities2 db = new hoivadbEntities2())
+            using (hoivaEntities db = new hoivaEntities())
             {
 
-                var userDetails = db.User.Where
+                var user = db.User.Where
                (x => x.UserName == userModel.UserName && x.Password == userModel.Password)
                .FirstOrDefault();
 
-                if (userDetails == null)
+                if (user == null)
                 {
                     userModel.LoginErrorMessage = "Väärä käyttäjätunnus tai salasana.";
 
@@ -36,11 +36,24 @@ namespace Hoivasovellus.Controllers
                 }
                 else
                 {
-                    Session["UserID"] = userDetails.UserID;
-                    return RedirectToAction("Index", "Tapahtumat");
+                    // Onnistunut kirjautuminen normaali user
+
+                    if (user.AdminUser == false)
+                    {
+                        Session["basicUser"] = user.UserID;
+                        return RedirectToAction("Index", "Tapahtumat");
+                    }
+
+                    // Onnistunut kirjautuminen admin user
+
+                    else
+                    {
+                        Session["adminUser"] = user.UserID;
+                        Session["basicUser"] = user.UserID;
+                        return RedirectToAction("Index", "Users");
+                    }
                 }
             }
-
 
         }
         public ActionResult LogOut()

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Hoivasovellus.Models.User>
+
+
+@{
+    if (Session["adminUser"] == null)
+    {
+        Response.Redirect("~/Tapahtumat/Index");
+    }
+}
+
+<h2>Admin näkymä</h2>
+<h2>Käyttäjät</h2>
+
+
+<a href="@Url.Action("Create", "Users")" class="btn btn-info btn-md">
+    <i class="icon-plus-sign"></i> Lisää uusi käyttäjä
+</a>
+
+<table class="table">
+    <tr>
+        <th>
+            Käyttäjätunnus
+        </th>
+        <th>
+            Salasana
+        </th>
+        <th>
+            Admin käyttäjä
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        *******
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AdminUser)
+    </td>
+    
+    <td>
+        <a style="margin-right: 20px" href="@Url.Action("Edit", "Users", new { id = item.UserID })" class="icon-edit">
+
+            <a href="@Url.Action("Delete", "Users", new { id = item.UserID })" class="icon-trash">
+    </td>
+    
+</tr>
+    }
+
+</table>

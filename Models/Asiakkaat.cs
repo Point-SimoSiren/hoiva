@@ -24,6 +24,7 @@ namespace Hoivasovellus.Models
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
         public string Puhelin { get; set; }
+        public string Allergiat { get; set; }
         public string Lääkitykset { get; set; }
         public string Sotu { get; set; }
     

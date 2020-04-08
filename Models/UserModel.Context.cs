@@ -13,10 +13,10 @@ namespace Hoivasovellus.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class hoivadbEntities2 : DbContext
+    public partial class hoivaEntities : DbContext
     {
-        public hoivadbEntities2()
-            : base("name=hoivadbEntities2")
+        public hoivaEntities()
+            : base("name=hoivaEntities")
         {
         }
     

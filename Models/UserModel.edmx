@@ -4,27 +4,28 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="hoivadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="hoivadbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Asiakkaat">
           <Key>
             <PropertyRef Name="AsiakasID" />
           </Key>
           <Property Name="AsiakasID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Etunimi" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Sukunimi" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="30" />
+          <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" />
           <Property Name="Puhelin" Type="nvarchar" MaxLength="20" />
+          <Property Name="Allergiat" Type="nvarchar" MaxLength="200" />
           <Property Name="Lääkitykset" Type="nvarchar" MaxLength="200" />
-          <Property Name="Sotu" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Sotu" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Tapahtumat">
           <Key>
             <PropertyRef Name="TapahtumaID" />
           </Key>
           <Property Name="TapahtumaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Otsikko" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Otsikko" Type="nvarchar" MaxLength="30" />
           <Property Name="Teksti" Type="nvarchar" MaxLength="400" />
-          <Property Name="Kirjaaja" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="TapahtumaAika" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kirjaaja" Type="nvarchar" MaxLength="30" />
+          <Property Name="TapahtumaAika" Type="date" />
           <Property Name="AsiakasID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
@@ -34,8 +35,9 @@
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AdminUser" Type="bit" />
         </EntityType>
-        <Association Name="FK_Tapahtumat_Asiakasid">
+        <Association Name="FK_Tapahtumat_Asiakkaat">
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
           <End Role="Tapahtumat" Type="Self.Tapahtumat" Multiplicity="*" />
           <ReferentialConstraint>
@@ -51,13 +53,12 @@
           <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tapahtumat" EntityType="Self.Tapahtumat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Tapahtumat_Asiakasid" Association="Self.FK_Tapahtumat_Asiakasid">
+          <AssociationSet Name="FK_Tapahtumat_Asiakkaat" Association="Self.FK_Tapahtumat_Asiakkaat">
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
             <End Role="Tapahtumat" EntitySet="Tapahtumat" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="hoivadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -66,24 +67,25 @@
             <PropertyRef Name="AsiakasID" />
           </Key>
           <Property Name="AsiakasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Etunimi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Sukunimi" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Etunimi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Puhelin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Allergiat" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Lääkitykset" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Sotu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tapahtumat" Relationship="Self.FK_Tapahtumat_Asiakasid" FromRole="Asiakkaat" ToRole="Tapahtumat" />
+          <Property Name="Sotu" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tapahtumat" Relationship="hoivadbModel.FK_Tapahtumat_Asiakkaat" FromRole="Asiakkaat" ToRole="Tapahtumat" />
         </EntityType>
         <EntityType Name="Tapahtumat">
           <Key>
             <PropertyRef Name="TapahtumaID" />
           </Key>
           <Property Name="TapahtumaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Otsikko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Otsikko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Teksti" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Kirjaaja" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TapahtumaAika" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kirjaaja" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TapahtumaAika" Type="DateTime" Precision="0" />
           <Property Name="AsiakasID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Asiakkaat" Relationship="Self.FK_Tapahtumat_Asiakasid" FromRole="Tapahtumat" ToRole="Asiakkaat" />
+          <NavigationProperty Name="Asiakkaat" Relationship="hoivadbModel.FK_Tapahtumat_Asiakkaat" FromRole="Tapahtumat" ToRole="Asiakkaat" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -92,10 +94,20 @@
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdminUser" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_Tapahtumat_Asiakasid">
-          <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
-          <End Role="Tapahtumat" Type="Self.Tapahtumat" Multiplicity="*" />
+        <EntityContainer Name="hoivaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" />
+          <EntitySet Name="Tapahtumat" EntityType="Self.Tapahtumat" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Tapahtumat_Asiakkaat" Association="hoivadbModel.FK_Tapahtumat_Asiakkaat">
+            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
+            <End Role="Tapahtumat" EntitySet="Tapahtumat" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Tapahtumat_Asiakkaat">
+          <End Type="hoivadbModel.Asiakkaat" Role="Asiakkaat" Multiplicity="1" />
+          <End Type="hoivadbModel.Tapahtumat" Role="Tapahtumat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Asiakkaat">
               <PropertyRef Name="AsiakasID" />
@@ -105,21 +117,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="hoivadbEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" />
-          <EntitySet Name="Tapahtumat" EntityType="Self.Tapahtumat" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_Tapahtumat_Asiakasid" Association="Self.FK_Tapahtumat_Asiakasid">
-            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
-            <End Role="Tapahtumat" EntitySet="Tapahtumat" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="hoivadbModelStoreContainer" CdmEntityContainer="hoivadbEntities2">
+        <EntityContainerMapping StorageEntityContainer="hoivadbModelStoreContainer" CdmEntityContainer="hoivaEntities">
           <EntitySetMapping Name="Asiakkaat">
             <EntityTypeMapping TypeName="hoivadbModel.Asiakkaat">
               <MappingFragment StoreEntitySet="Asiakkaat">
@@ -127,6 +130,7 @@
                 <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
                 <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
                 <ScalarProperty Name="Puhelin" ColumnName="Puhelin" />
+                <ScalarProperty Name="Allergiat" ColumnName="Allergiat" />
                 <ScalarProperty Name="Lääkitykset" ColumnName="Lääkitykset" />
                 <ScalarProperty Name="Sotu" ColumnName="Sotu" />
               </MappingFragment>
@@ -150,6 +154,7 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminUser" ColumnName="AdminUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

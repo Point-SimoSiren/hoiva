@@ -18,7 +18,7 @@ namespace Hoivasovellus.Models
         public string Otsikko { get; set; }
         public string Teksti { get; set; }
         public string Kirjaaja { get; set; }
-        public string TapahtumaAika { get; set; }
+        public Nullable<System.DateTime> TapahtumaAika { get; set; }
         public int AsiakasID { get; set; }
     
         public virtual Asiakkaat Asiakkaat { get; set; }

@@ -1,0 +1,48 @@
+﻿@model Hoivasovellus.Models.User
+
+
+<h3>Olet poistamassa käyttäjää, oletko varma?</h3>
+<div>
+
+    <a href="@Url.Action("Index", "Users")" class="btn btn-info btn-md">
+        <i class="icon-arrow-left"></i> Peruuta
+    </a>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminUser)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Vahvista poisto" class="btn btn-danger" />
+
+        </div>
+    }
+</div>

@@ -14,6 +14,8 @@
     </a>
 
 </h1>
+
+
 <table class="table">
     <tr>
         <th></th>
@@ -27,6 +29,9 @@
             @Html.DisplayNameFor(model => model.Puhelin)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Allergiat)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Lääkitykset)
         </th>
         <th>
@@ -38,33 +43,36 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
+<tr>
+    <td>
 
-                <a href="@Url.Action("Details", "Asiakkaat", new { id = item.AsiakasID })" class="icon-print"></a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Etunimi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sukunimi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Puhelin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lääkitykset)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sotu)
-            </td>
-            <td>
-                <a style="margin-right: 20px" href="@Url.Action("Edit", "Asiakkaat", new { id = item.AsiakasID })" class="icon-edit">
+        <a href="@Url.Action("Details", "Asiakkaat", new { id = item.AsiakasID })" class="icon-print"></a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Etunimi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sukunimi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Puhelin)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Allergiat)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lääkitykset)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sotu)
+    </td>
+    <td>
+        <a style="margin-right: 20px" href="@Url.Action("Edit", "Asiakkaat", new { id = item.AsiakasID })" class="icon-edit"/>
 
-                    <a href="@Url.Action("Delete", "Asiakkaat", new { id = item.AsiakasID })" class="icon-trash">
-            </td>
+            <a href="@Url.Action("Delete", "Asiakkaat", new { id = item.AsiakasID })" class="icon-trash"/>
+    </td>
 
-        </tr>
+</tr>
     }
 
 </table>

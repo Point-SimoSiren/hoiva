@@ -13,14 +13,30 @@ namespace Hoivasovellus.Controllers
 {
     public class TapahtumatController : Controller
     {
-        private hoivadbEntities2 db = new hoivadbEntities2();
+        private hoivaEntities db = new hoivaEntities();
 
-        // GET: Tapahtumat
-        public async Task<ActionResult> Index()
+
+        //GET tapahtumat hakusanalla
+
+        public async Task <ActionResult> Index(string searching)
         {
-            var tapahtumat = db.Tapahtumat.Include(t => t.Asiakkaat);
+            return View(await db.Tapahtumat.Where(x => x.Asiakkaat.Etunimi.Contains(searching) || searching == null).ToListAsync());
+        }
+
+
+
+        // GET: Tapahtumat kirjatun pvm ajan mukaan järjestettynä, ei id:n eli luontijärjestyksen
+
+        public async Task<ActionResult> Aika()
+        {
+
+            var tapahtumat = (from t in db.Tapahtumat
+                              orderby t.TapahtumaAika
+                              select t);
+
             return View(await tapahtumat.ToListAsync());
         }
+
 
         // GET: Tapahtumat/Details/5
         public async Task<ActionResult> Details(int? id)

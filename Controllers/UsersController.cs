@@ -11,107 +11,105 @@ using Hoivasovellus.Models;
 
 namespace Hoivasovellus.Controllers
 {
-    public class AsiakkaatController : Controller
+    public class UsersController : Controller
     {
         private hoivaEntities db = new hoivaEntities();
 
-        // GET: Asiakkaat
+        
+
         public async Task<ActionResult> Index()
         {
-            return View(await db.Asiakkaat.ToListAsync());
+            return View(await db.User.ToListAsync());
         }
 
-        // GET: Asiakkaat/Details/5
+
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asiakkaat asiakkaat = await db.Asiakkaat.FindAsync(id);
-            if (asiakkaat == null)
+            User user = await db.User.FindAsync(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(asiakkaat);
+            return View(user);
         }
 
-        // GET: Asiakkaat/Create
+        
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Asiakkaat/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AsiakasID,Etunimi,Sukunimi,Puhelin,Lääkitykset,Sotu")] Asiakkaat asiakkaat)
+        public async Task<ActionResult> Create([Bind(Include = "UserID,UserName,Password,AdminUser")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Asiakkaat.Add(asiakkaat);
+                db.User.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(asiakkaat);
+            return View(user);
         }
 
-        // GET: Asiakkaat/Edit/5
+ 
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asiakkaat asiakkaat = await db.Asiakkaat.FindAsync(id);
-            if (asiakkaat == null)
+            User user = await db.User.FindAsync(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(asiakkaat);
+            return View(user);
         }
 
-        // POST: Asiakkaat/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+   
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "AsiakasID,Etunimi,Sukunimi,Puhelin,Allergiat,Lääkitykset,Sotu")] Asiakkaat asiakkaat)
+        public async Task<ActionResult> Edit([Bind(Include = "UserID,UserName,Password,AdminUser")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(asiakkaat).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(asiakkaat);
+            return View(user);
         }
 
-        // GET: Asiakkaat/Delete/5
+        
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Asiakkaat asiakkaat = await db.Asiakkaat.FindAsync(id);
-            if (asiakkaat == null)
+            User user = await db.User.FindAsync(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(asiakkaat);
+            return View(user);
         }
 
-        // POST: Asiakkaat/Delete/5
+
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Asiakkaat asiakkaat = await db.Asiakkaat.FindAsync(id);
-            db.Asiakkaat.Remove(asiakkaat);
+            User user = await db.User.FindAsync(id);
+            db.User.Remove(user);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

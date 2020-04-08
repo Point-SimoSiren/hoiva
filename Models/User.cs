@@ -14,7 +14,6 @@ namespace Hoivasovellus.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-
     public partial class User
     {
         public int UserID { get; set; }
@@ -26,6 +25,7 @@ namespace Hoivasovellus.Models
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Anna salasana.")]
         public string Password { get; set; }
+        public Nullable<bool> AdminUser { get; set; }
 
         public string LoginErrorMessage { get; set; }
     }

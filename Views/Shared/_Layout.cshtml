@@ -1,5 +1,5 @@
 ﻿@{
-    if (Session["userID"] == null)
+    if (Session["basicUser"] == null)
     {
         Response.Redirect("~/Login/Index");
     }
@@ -36,9 +36,13 @@
                     <li>@Html.ActionLink("Tapahtumat", "Index", "Tapahtumat")</li>
                 </ul>
 
-                <ul class="nav navbar-nav" style="margin-left:70%">
-                    
+                <ul class="nav navbar-nav" style="margin-left:60%">
+
                     <li>@Html.ActionLink("Sulje istunto", "LogOut", "Login")</li>
+                    <li>
+                        @Html.ActionLink("(Admin alue)", "Index", "Users")
+                    </li>
+
                 </ul>
             </div>
 
